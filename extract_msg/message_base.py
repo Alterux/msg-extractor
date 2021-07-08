@@ -278,6 +278,13 @@ class MessageBase(MSGFile):
             return self._header
 
     @property
+    def rawheader(self):
+        """
+        Returns the raw header
+        """
+        return str(self._header)
+        
+    @property
     def headerDict(self):
         """
         Returns a dictionary of the entries in the header
