@@ -146,7 +146,8 @@ class Message(MessageBase):
 
             with open('message.' + fext, 'wb') as f:
                 if toJson:
-                    emailObj = {'from': inputToString(self.sender, 'utf-8'),
+                    emailObj = {'header': inputToString(self.rawheader, 'utf-8'),
+                                'from': inputToString(self.sender, 'utf-8'),
                                 'to': inputToString(self.to, 'utf-8'),
                                 'cc': inputToString(self.cc, 'utf-8'),
                                 'subject': inputToString(self.subject, 'utf-8'),
@@ -163,6 +164,8 @@ class Message(MessageBase):
                         # Do stuff
                         pass
                     else:
+                        f.write(b'Header: ' + inputToBytes(self.rawheader, 'utf-8') + crlf)
+                        f.write(b'-----------------' + crlf)
                         f.write(b'From: ' + inputToBytes(self.sender, 'utf-8') + crlf)
                         f.write(b'To: ' + inputToBytes(self.to, 'utf-8') + crlf)
                         f.write(b'CC: ' + inputToBytes(self.cc, 'utf-8') + crlf)
